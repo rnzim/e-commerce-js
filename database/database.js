@@ -3,7 +3,8 @@ const knex = require('knex')({client:'mysql2',connection:{
     port:3306,
     password:'',
     user:'root',
-    database:'eco'
+    database:'e_commerce'
+
 }})
 
 module.exports = knex

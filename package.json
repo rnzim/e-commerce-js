@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "rnzim",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mysql2": "^3.6.2"
+  }
 }

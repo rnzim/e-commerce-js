@@ -1,8 +1,6 @@
 const knex = require('../database/database')
 class User{
-    async login(){
-       
-    }
+    
     async findByid(id){
        try {
          var result = await knex.select().where({id:id}).table("users")

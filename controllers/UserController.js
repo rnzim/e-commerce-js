@@ -39,6 +39,7 @@ class UserController{
             var comparePass = await bcrypt.compare(pass,user[0].pass)
             if(comparePass){
                 var token = jwt.sign({
+                    id:user[0].id,
                     fullname:user[0].fullname,
                     username:user[0].username,
                     email:user[0].email,

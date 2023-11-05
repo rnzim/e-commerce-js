@@ -28,8 +28,13 @@ class User{
     async deleteUser(user){
 
     }
-    async setTypeUser(){
-        //ha dois tipos de usuarios //clientes e vendedores
+    async viewAllUser(){
+        try{
+          var result = await knex.select().table('users')
+          return result
+      }catch(error){
+          throw error
+      }
     }
     async edituser(){
 

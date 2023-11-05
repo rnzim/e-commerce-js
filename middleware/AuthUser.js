@@ -8,6 +8,7 @@ module.exports = (req,res,next)=>{
         try{
             var isvalid = jwt.verify(token,secret)
             if(Object.keys(isvalid).length > 0){
+                    req.userToken = isvalid
                     next()               
             }else{
                 res.status(400).json({msg:"Token Desconecido"})

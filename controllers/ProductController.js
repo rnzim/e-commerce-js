@@ -1,26 +1,33 @@
 const Product = require('../models/Product')
+const Seller = require('../models/Seller')
 class ProductController{
     async registerProduct(req,res){
-        var{
-            name_product,
-            description_product,
-            seller,
-            amount,
-            published,
-            pricing} = req.body
-        try {
-            await Product.createProduct({
+        var id = req.userToken.id
+        var isSeller = req.userToken.seller
+        if(isSeller == 1){
+            var findSeller = await Seller.findSellerById(id)
+            
+            var{
                 name_product,
                 description_product,
-                seller,
                 amount,
                 published,
-                pricing
-            }) 
-            res.status(200).send('OK')
-        } catch (error) {
-            res.status(500)
+                pricing} = req.body
+            try {
+                await Product.createProduct({
+                    name_product,
+                    description_product,
+                    id_seller:findSeller[0].id,
+                    amount,
+                    published,
+                    pricing
+                }) 
+                res.status(200).send('OK')
+            } catch (error) {
+                res.status(500)
+            }
         }
+        
     }
     async findProduct(req,res){
        var id = req.params.id

@@ -10,6 +10,10 @@ class HomeController{
         }
         
     }
+    async teste(req,res){
+        var id = req.userToken
+        res.status(200).json({user:id})
+    }
 }
 
 module.exports = new HomeController

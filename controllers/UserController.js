@@ -54,5 +54,13 @@ class UserController{
         }
         
     }
+    async viewUser(req,res){
+        try{
+            var result = await User.viewAllUser()
+            res.json(result).status(200)
+        }catch(error){
+            throw error
+        }
+    }
 }
 module.exports = new UserController

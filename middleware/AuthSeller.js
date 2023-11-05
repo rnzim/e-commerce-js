@@ -9,6 +9,7 @@ module.exports = (req,res,next)=>{
             var isvalid = jwt.verify(token,secret)
             if(Object.keys(isvalid).length > 0){
                 if(isvalid.seller == 1){
+                    req.userToken = isvalid
                     next()
                 }else{
                     res.status(403).json({msg:"Voce nao e vendedor"})

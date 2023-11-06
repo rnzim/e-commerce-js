@@ -2,8 +2,8 @@ const Purchase = require('../models/UserPurchases')
 const jwt = require('jsonwebtoken')
 
 class PurchaseController{
-  async buy(req,res){
-     
+  async viewMyBuys(req,res){
+     var id = req.userToken.id
      
   }
  

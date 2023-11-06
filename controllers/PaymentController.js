@@ -81,14 +81,20 @@ class PaymentController{
                var payment = data.body.results[0]
     
                if(payment != undefined){
-                console.log(payment.external_reference)
+                var reference = payment.external_reference
+                console.log(reference)
                 console.log(payment.status)
-
-                var savePayment = Payment.setPaymentToSucessFull({
-                    //falta atualizar o pagamento para sucesso
+                try {
+                     var savePayment = Payment.setPaymentToSucessFull(reference,{
+                     status_paid:"Pagemento Realizado",
+                     paid_out:true,
+                     payment_type:"Mercado Pago",
+                     payment_url:"Item Pago Com Sucesso"
                 }) 
-    
-    
+                console.log(savePayment)
+                } catch (error) {
+                    console.log(error)
+                }
                }else{
                  console.log("Esse Pagamento Nao existe")
                }

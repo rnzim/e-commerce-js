@@ -1,18 +1,6 @@
 const knex = require('../database/database')
 class UserPurchases{
-   async buyItem(idClient,idProduct){
-      try {
-        var result = await knex.insert({id_user:idClient
-         ,id_product:idProduct,
-         status_product:1,
-         id_payment:54,
-         aproved:1}
-          ).table("purchase")
-        return result
-      } catch (error) {
-         throw error
-      }
-   }
+  
    async viewBuys(id){
       try {
          var result = await knex.

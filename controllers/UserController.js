@@ -62,5 +62,14 @@ class UserController{
             throw error
         }
     }
+    async updatePhotoProfiler(req,res){
+        var id = req.userToken.id
+        try{
+            var result = await User.editPhotoProfile(id,name_photo)
+            res.json(result).status(200)
+        }catch(error){
+            throw error
+        }
+    }
 }
 module.exports = new UserController

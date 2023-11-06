@@ -53,9 +53,17 @@ class Seller{
             throw error
         }
     }
+    async findSellerByNameStore(name){
+        try {
+           var seller = await knex.select("name_store","description_store").where({name_store:name}).table("seller")
+           return seller 
+        } catch (error) {
+            throw error
+        }
+    }
     async infoSeller(id){
         try {
-            var seller = await knex.select("name_store","description_store").where({id_user:id}).table("seller")
+            var seller = await knex.select().where({id_user:id}).table("seller")
             return seller 
          } catch (error) {
              throw error

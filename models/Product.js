@@ -48,7 +48,7 @@ class Product{
     //preview in home page
     async previewProduct(){
         try {
-            var result = await knex.select("name_product","pricing","img","seller").table('products')
+            var result = await knex.select("name_product","pricing","img","id_seller").table('products')
             return result
         } catch (error) {
             console.log(error)
@@ -85,6 +85,26 @@ class Product{
         } catch (error) {
             throw error            
         }
+    }
+    async viewMyProducts(id){
+        try {
+            var result = await knex.select("*").where({id_seller:id})
+            .table('products')
+            return result
+        } catch (error) {
+            console.log(error)
+            return[]
+        }
+     
+    }
+    async setSold(id){
+      try {
+        var result = await knex.increment('sold',1)
+        .where({id:id}).table("products")
+        return result
+      } catch (error) {
+        throw error
+      }
     }
 }
 module.exports = new Product

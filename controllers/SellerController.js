@@ -1,5 +1,5 @@
 const Seller = require('../models/Seller')
-
+const Products = require('../models/Product')
 class SellerController{
     async editMyStore(req,res){
         var id = req.userToken.id
@@ -25,15 +25,32 @@ class SellerController{
             res.status(404).json({msg:"Loja Inexistente"})
         }
     }
-    async sellerProfile(req,res){
+    async sellerMyProfile(req,res){
       var id = req.userToken.id
       var seller = await Seller.infoSeller(id)
+      var products = await Products.viewMyProducts(seller[0].id)
       if(seller.length > 0){
-        res.status(200).json(seller[0])
+        res.status(200).json({seller:seller[0],products:products})
       }else{
         res.status(404).json({msg:"Voce Não E Vendedor"})
       }
     }
+
+   async sellerPublicProfile(req,res){
+        var name = req.params.name
+        try{
+            var seller = await Seller.findSellerByNameStore(name)
+            if(seller.length > 0){
+                res.status(200).json(seller)
+            }else{
+                res.status(404).json({msg:"Esse Vendedor Não Existe"})
+            }
+        }catch(e){
+            console.log(e)
+            res.status(500).json({msg:"Erro Desconhecido"})
+        }
+    }
+    
     async setSeller(req,res){
         var id = req.userToken.id
         var name_store = req.userToken.fullname

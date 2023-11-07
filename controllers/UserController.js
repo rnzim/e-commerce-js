@@ -43,7 +43,7 @@ class UserController{
                     fullname:user[0].fullname,
                     username:user[0].username,
                     email:user[0].email,
-                    seller:user[0].seller},secret,{expiresIn:'1h'})
+                    seller:user[0].seller},secret,{expiresIn:'7d'})
                 res.status(200).json({token})
             }else{
                 res.status(401).send('password incorrect')

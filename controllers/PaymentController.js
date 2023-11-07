@@ -71,7 +71,8 @@ class PaymentController{
         }
     }
     async verifyPayments(req,res){
-        var id = req.params.id
+        var id = req.query.id
+        console.log("chegou agr aguade 10s"+id)
         setTimeout(()=>{
             var filter={
                 "order.id":id
@@ -82,20 +83,26 @@ class PaymentController{
                var payment = data.body.results[0]
     
                if(payment != undefined){
-                var reference = payment.external_reference
-                console.log(reference)
+                var reference = payment
+                //console.log(reference)
+                console.log('///////////\u001b[33m')
                 console.log(payment.status)
-                try {
+                console.log(payment.payment_type_id)
+                console.log(payment.payment_method_id)
+                console.log(payment)
+                console.log(payment.external_reference)
+                
+                /*try {
                      var savePayment = Payment.setPaymentToSucessFull(reference,{
                      status_paid:"Pagemento Realizado",
                      paid_out:true,
-                     payment_type:"Mercado Pago",
+                     payment_type:payment.payment_type_id,
                      payment_url:"Item Pago Com Sucesso"
                 }) 
                 console.log(savePayment)
                 } catch (error) {
                     console.log(error)
-                }
+                }*/
                }else{
                  console.log("Esse Pagamento Nao existe")
                }
@@ -103,7 +110,8 @@ class PaymentController{
                 console.log(e.message)
             })
           
-        },20000)
+        },10000)
+        
     }
 }
 

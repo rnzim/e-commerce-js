@@ -66,7 +66,7 @@ router.get('/payment/:idProduct',AuthUser,PaymentController.createPayment)
 //ver os pagamentos gerados pelo usuario
 router.get('/payment',AuthUser,PaymentController.viewPayment)
 //rota exclusiva do mercado pagp aqui ele vai noticar quando ouve um pagamento
-router.post('/payment/very',AuthUser,PaymentController.verifyPayments)
+router.post('/payment/very',PaymentController.verifyPayments)
 //seller
 //editar dados da loja
 router.put('/seller',AuthSeller,SellerController.editMyStore)

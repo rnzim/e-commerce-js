@@ -41,7 +41,7 @@ class User{
     }
     async editPhotoProfile(id,name_image){
       try{
-        var result = await knex.update({img_profile:name_image}).where({id:id}).
+        var result = await knex.update({img_profiler:name_image}).where({id:id}).
         table('users')
         return result
     }catch(error){

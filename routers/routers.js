@@ -6,8 +6,34 @@ const ProductController = require('../controllers/ProductController')
 const PurchaseController = require('../controllers/PurchaseController')
 const SellerController = require('../controllers/SellerController')
 const PaymentController = require('../controllers/PaymentController')
+const UploadController = require('../controllers/UploadController')
 const AuthSeller = require('../middleware/AuthSeller')
 const AuthUser = require('../middleware/AuthUser')
+
+
+//upload de image
+const multer = require('multer')
+const path = require('path')
+
+
+const storage = multer.diskStorage({destination:(req,file,cb)=>{
+    cb(null,"public/images/profiles")
+    },
+    filename:(req,file,cb)=>{
+        var name_file = "profile"+Date.now()+path.extname(file.originalname)
+        req.name_file = name_file
+        cb(null,name_file)
+       
+    }   
+
+})   
+
+const upload = multer({storage})
+
+
+//rotas
+
+
 router.get('/',HomeController.index)
  //teste
  router.get('/test',AuthUser,HomeController.teste)
@@ -15,6 +41,7 @@ router.get('/',HomeController.index)
 router.get('/user',UserController.viewUser)
 router.post('/login',UserController.loginUser)
 router.post('/user',UserController.registerUser)
+router.post('/upload',upload.single("imagem"),AuthUser,UploadController.uploadPhoto)
 
 //product routers
 //procurar um produto pelo id

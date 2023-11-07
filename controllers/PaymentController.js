@@ -71,11 +71,12 @@ class PaymentController{
         }
     }
     async verifyPayments(req,res){
+        var id = req.params.id
         setTimeout(()=>{
             var filter={
                 "order.id":id
             }
-            MercadoPago.search({
+            MercadoPago.payment.search({
                 qs:filter
             }).then(data=>{
                var payment = data.body.results[0]

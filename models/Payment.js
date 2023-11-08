@@ -26,5 +26,13 @@ class Payment{
             throw error
         }
     }
+    async findPaymentByExternalReference(reference){
+        try {
+            var pay = await knex.select().where({external_references:reference}).table("payment")
+            return pay
+        } catch (error) {
+            throw error
+        }
+    }
 }
 module.exports = new Payment

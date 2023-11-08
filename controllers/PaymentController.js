@@ -5,7 +5,7 @@ const MercadoPago = require('mercadopago')
 
 MercadoPago.configure({
     sandbox:true,
-    access_token:"TEST-5167050113879566-110411-c72bf261a520a355915b70adfcb822c2-839637711"
+    access_token:"your token here!!!"
     
 
 })
@@ -72,37 +72,57 @@ class PaymentController{
     }
     async verifyPayments(req,res){
         var id = req.query.id
-        console.log("chegou agr aguade 10s"+id)
+        console.log("Chegou! Verificando Se O Pagemento E Valido Aguade 10s  ID:"+id)
         setTimeout(()=>{
             var filter={
                 "order.id":id
             }
+            //Pesquisa O pagamento No db Do mercado Livre
             MercadoPago.payment.search({
                 qs:filter
             }).then(data=>{
                var payment = data.body.results[0]
     
                if(payment != undefined){
-                var reference = payment
+                var reference = payment.external_reference
                 //console.log(reference)
                 console.log('///////////\u001b[33m')
                 console.log(payment.status)
                 console.log(payment.payment_type_id)
                 console.log(payment.payment_method_id)
-                console.log(payment)
                 console.log(payment.external_reference)
-                
-                /*try {
-                     var savePayment = Payment.setPaymentToSucessFull(reference,{
-                     status_paid:"Pagemento Realizado",
-                     paid_out:true,
-                     payment_type:payment.payment_type_id,
-                     payment_url:"Item Pago Com Sucesso"
-                }) 
-                console.log(savePayment)
-                } catch (error) {
-                    console.log(error)
-                }*/
+                //pequisa a external reference no db
+                Payment.findPaymentByExternalReference(payment.external_reference)
+                .then((veryEx_ref )=>{
+                    if(veryEx_ref.length > 0){
+                        console.log('True! pagamento validado com sucesso')
+                        if(payment.status =='approved'){
+                            try {
+                                //salvar o pagamento no banco de dados
+                                Payment.setPaymentToSucessFull(reference,{
+                                status_paid:"Pagemento Realizado",
+                                paid_out:true,
+                                payment_type:payment.payment_type_id,
+                                payment_url:"Item Pago Com Sucesso"
+                                
+        
+                            }).then((savePayment)=>{
+                                console.log('Sucesso Ao salvar')
+                            }).catch(e=>{
+                                console.log('Erro Ao Salavar No DB')
+                            })
+                            
+                           } catch (error) {
+                                console.log(error)
+                            }
+                        }
+                        
+                    }else{
+                        console.log("Validação Falhou! Suspeita DE Fraude O Adm Foi Avisado")
+                    }
+                })
+               
+              
                }else{
                  console.log("Esse Pagamento Nao existe")
                }
@@ -111,7 +131,7 @@ class PaymentController{
             })
           
         },10000)
-        
+        res.status(200)
     }
 }
 

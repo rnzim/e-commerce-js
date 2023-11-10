@@ -64,7 +64,8 @@ class SellerController{
                     id_user:id,
                     name_store:name_store
                 })
-                res.status(200).json({msg:"Parabens "+req.userToken.fullname+" Agora Voce Pode vender Produtos"})
+                req.session.destroy()
+                res.redirect('/')
             }
         } catch (error) {
             console.log(error)

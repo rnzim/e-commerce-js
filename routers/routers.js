@@ -77,7 +77,7 @@ router.post('/payment/very',PaymentController.verifyPayments)
 //editar dados da loja
 router.put('/seller',AuthSeller,SellerController.editMyStore)
 //torna-se vendedor 
-router.put('/seller/toturn',AuthUser,SellerController.setSeller)
+router.get('/seller/toturn',UserSession,SellerController.setSeller)
 //mostrar seu perfil pessoal de vendedor
 router.get('/seller/me/profile',AuthUser,SellerController.sellerMyProfile)
 //perfil publico a todos os usuarios da plataforma

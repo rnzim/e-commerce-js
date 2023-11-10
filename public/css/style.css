@@ -116,11 +116,33 @@ nav{
    
    
 }
+.img-search{
+    width: 200px;
+    height: 120px;
+   
+   
+}
+.search-div{
+    margin: auto;
+    width: 85%;
+    padding: 20px;
+    background-color: white; 
+}
+.search-p{
+   display: flex;
+   align-items: center;
+   gap:20px;
+   padding: 10px;
+   background-color: rgb(246, 240, 240);
+   margin-bottom: 10px;
+   border-radius: 5px;
+   border: 1px solid gray;
+}
 .card-product{
     margin: 10px;
     background-color: white;
     width: 188px;
-    height: 222px;
+    height: 230px;
     border:0.5px gray solid;
     border-radius: 3px; 
 }

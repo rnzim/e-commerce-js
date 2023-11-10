@@ -58,7 +58,7 @@ class Product{
     }
     async viewProduct(){
         try {
-            var result = await knex.select("*").table('products')
+            var result = await knex.select(["products.*","seller.name_store"]).table('products').innerJoin('seller','seller.id','products.id_seller')
             return result
         } catch (error) {
             console.log(error)
@@ -68,7 +68,8 @@ class Product{
     }
     async findByIdProduct(id){
         try{
-            var result = await knex.select("*").where({id:id}).table('products')
+            var result = await knex.select(["products.*","seller.name_store"]).table('products')
+            .innerJoin('seller','seller.id','products.id_seller').where({"products.id":id})
             return result
         }catch(error){
             console.log(error)
@@ -77,10 +78,10 @@ class Product{
     }
     async seachProductByName(name){
         try {
-            var result = await knex.select()
+            var result = await knex.select(["products.*","seller.name_store"]).table("products")
             .whereRaw('name_product like ?', [`%${name}%`])
-            .orWhere('description_product ', 'like', `%${name}%`)
-            .table("products")
+            .orWhere('description_product ', 'like', `%${name}%`).innerJoin('seller','seller.id','products.id_seller')
+            
             return result
         } catch (error) {
             throw error            

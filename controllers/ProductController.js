@@ -90,10 +90,10 @@ class ProductController{
        var name = req.params.name
        try {
         var result = await Product.seachProductByName(name)
-        res.status(200).json(result)
+        res.render('search/main.ejs',{product:result,user:req.session.user})
        } catch (error) {
         console.log(error)
-        res.status(500)
+        console.log(error)
        }
     }
 }

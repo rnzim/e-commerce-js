@@ -1,0 +1,22 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+<div class="search-div">
+    <% product.forEach(p =>{ %>
+ 
+        <div class="search-p" onclick="location.href='/page/product/<%=p.id%>'">
+            <img src="/images/products/<%=p.img%>" class="img-search">
+            <div class="details-product" >
+            <h1 class="h1-pg"><%=p.name_product%> </h1>
+           
+            <h3 class="pricing">R$ <%=p.pricing%></h3>
+            <p  class="pg">Vendido Por <%=p.name_store%></p>
+        </div> 
+        </div>
+     
+    
+       <%})%>
+    
+           
+</div>
+<%- include('../partials/footer.ejs') %>

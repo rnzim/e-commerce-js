@@ -5,7 +5,7 @@ const MercadoPago = require('mercadopago')
 
 MercadoPago.configure({
     sandbox:true,
-    access_token:"your token"
+    access_token:"TEST-5897717864758760-103120-90767efa126074d54b1cc29dda9bd22b-1078459919"
     
 
 })
@@ -13,8 +13,8 @@ MercadoPago.configure({
 class PaymentController{
     async createPayment(req,res){
         var {idProduct} = req.params
-        var IdUser = req.userToken.id
-        var email = req.userToken.email
+        var IdUser = req.session.user.id
+        var email = req.session.user.email
         var idBuy = `${IdUser}rnzim${Date.now()}${idProduct}`
         
         var result = await Products.findByIdProduct(idProduct)
@@ -62,10 +62,10 @@ class PaymentController{
        
     }
     async viewPayment(req,res){
-        var id = req.userToken.id
+        var id = req.session.user.id
         var payments = await Payment.viewPayment(id)
         if(payments.length > 0){
-            res.status(200).json(payments)
+            res.render('payment/main.ejs',{payments,user:req.session.user})
         }else{
             res.status(404).json({msg:"Voce Ainda Não Gerou Nenhum Pagamento"})
         }

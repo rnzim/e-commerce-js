@@ -1,6 +1,17 @@
 const Product = require('../models/Product')
 const Seller = require('../models/Seller')
 class ProductController{
+
+    async viewProduct(req,res){
+        var id = req.params.id
+        try {
+            var product = await Product.findByIdProduct(id)
+            console.log(product)
+            res.render('products/main.ejs',{product:product[0],user:req.session.user})
+        } catch (error) {
+            console.log(error)
+        }
+    }
     async registerProduct(req,res){
         var id = req.userToken.id
         var isSeller = req.userToken.seller
@@ -40,6 +51,7 @@ class ProductController{
        }
       
     } 
+
     async productUpdate(req,res){
         var id = req.params.id
         var {

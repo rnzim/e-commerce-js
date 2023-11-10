@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const session = require('express-session')
 const secret = 'miznr'
 class UserController{
     async registerUser(req,res){
@@ -32,6 +33,35 @@ class UserController{
             res.status(500)
          }
     }
+    async login(req,res){
+        res.render('user/login.ejs')
+    }
+
+    async loginUserSession(req,res){
+        var {email,pass} = req.body
+        var user = await User.findByEmail(email)
+        if(user.length > 0){
+            var comparePass = await bcrypt.compare(pass,user[0].pass)
+            if(comparePass){
+                req.session.user = ({
+                    id:user[0].id,
+                    fullname:user[0].fullname,
+                    username:user[0].username,
+                    email:user[0].email,
+                    seller:user[0].seller})
+                    res.redirect('/')
+                   
+            }else{
+                res.send('senha errada')
+            }
+           
+        }else{
+            res.send('email not found')
+        }
+        
+    }
+
+    //api
     async loginUser(req,res){
         var {email,pass} = req.body
         var user = await User.findByEmail(email)

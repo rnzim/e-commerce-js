@@ -1,0 +1,29 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+<div class="card-page-product">
+    <table>
+        <th>ID Do Pagamento</th>
+        <th>ID Do Produto</th>
+        <th>Preço</th>
+        <th>Status</th>
+        <th>Tipo</th>
+        <th>Pagar</th>
+        <% payments.forEach(p =>{ %>
+        <tr>
+        <td><%= p.id%></td>
+        <td><%= p.id_product%></td>
+        <td>R$<%= p.pricing%></td>
+        <td><%= p.status_paid%></td>
+        <td><%= p.payment_type%></td>
+        <td><a class="btn-pay "href="<%= p.payment_url%>">Pagar</a></td>
+        </tr>
+        <%})%>
+    </table>
+   
+      
+           
+    
+       
+</div>
+
+<%- include('../partials/footer.ejs') %>

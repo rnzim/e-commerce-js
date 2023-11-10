@@ -1,0 +1,25 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+
+<div class="card-page-product">
+    <img class="img-product-pg" src="http://localhost:3000/images/products/<%= product.img %>">
+    <div class="details-product">
+        <h1 class="h1-pg"><%= product.name_product %></h1>
+        <p class="pg-desc"><%= product.description_product %></p>
+        <hr>
+        <h3 class="pricing-pg">R$ <%= product.pricing %> </h3>
+        <p class="pg">Chegarar Amanhã Confia!!!</p>
+        <p class="pg-q">Quantidade: 1</p>
+        <p class="pg-alert">VOCÊ  NÃO E DONO DE SUPERMECARDO POR TANTO SO PODERAR COMPRAR UM POR VEZ</p>
+        
+       
+        
+       <a class="btn-buy" href="/payment/<%= product.id %>">Comprar</a>
+       
+        
+    </div>
+   
+</div>
+
+<%- include('../partials/footer.ejs') %>

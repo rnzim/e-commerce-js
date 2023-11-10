@@ -52,8 +52,8 @@ class SellerController{
     }
     
     async setSeller(req,res){
-        var id = req.userToken.id
-        var name_store = req.userToken.fullname
+        var id = req.session.user.id
+        var name_store = req.session.user.fullname
         try {
             var findSeller = await Seller.findSellerById(id)
             if(findSeller.length > 0){

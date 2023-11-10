@@ -1,0 +1,29 @@
+<header>
+    <% if (user !== undefined) { %>
+        <p>oi <%= user.fullname %></p>
+    <% } else { %>
+        <a href="/login">Entrar</a>
+        <a href="/cadastro">Cadastro</a>
+    <% } %>
+    
+    <div class="header-search-items">
+        <h1>Power</h1> 
+        
+        <div class="search">
+            <input type="text" placeholder="Busca Em power">
+            <button>Search</button>
+        </div>
+      
+
+    </div>
+    
+    
+    
+    <nav>
+        <a href="/my/buy">Minhas Compras</a>
+        <a href="/">Inicio</a>
+        <a href="">Meu Perfil</a>
+        <a href="/seller/toturn">Torne-se Vendedor</a>
+
+    </nav>
+   </header>

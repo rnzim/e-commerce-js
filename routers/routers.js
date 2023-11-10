@@ -9,6 +9,7 @@ const PaymentController = require('../controllers/PaymentController')
 const UploadController = require('../controllers/UploadController')
 const AuthSeller = require('../middleware/AuthSeller')
 const AuthUser = require('../middleware/AuthUser')
+const UserSession = require('../middleware/AuthUserSession')
 
 
 //upload de image
@@ -36,14 +37,19 @@ const upload = multer({storage})
 
 router.get('/',HomeController.index)
  //teste
- router.get('/test',AuthUser,HomeController.teste)
+
 //users routers
+router.post('/login',UserController.loginUserSession)
+
+router.get('/login',UserController.login)
+
 router.get('/user',UserController.viewUser)
-router.post('/login',UserController.loginUser)
+// api =>router.post('/login',UserController.loginUser)
 router.post('/user',UserController.registerUser)
 router.post('/upload',upload.single("imagem"),AuthUser,UploadController.uploadPhoto)
 
 //product routers
+router.get('/page/product/:id',ProductController.viewProduct)
 //procurar um produto pelo id
 router.get('/product/:id',ProductController.findProduct)
 //pesquisa de produtos
@@ -62,9 +68,9 @@ router.get('/purchase',PurchaseController.viewBuys)
 router.get('/purchase/:idClient/:idProduct',PurchaseController.buy)
 */
 //payments
-router.get('/payment/:idProduct',AuthUser,PaymentController.createPayment)
+router.get('/payment/:idProduct',UserSession,PaymentController.createPayment)
 //ver os pagamentos gerados pelo usuario
-router.get('/payment',AuthUser,PaymentController.viewPayment)
+router.get('/my/buy',UserSession,PaymentController.viewPayment)
 //rota exclusiva do mercado pagp aqui ele vai noticar quando ouve um pagamento
 router.post('/payment/very',PaymentController.verifyPayments)
 //seller

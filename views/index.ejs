@@ -1,0 +1,37 @@
+<%- include('partials/header.ejs') %>
+<%- include('partials/navbar.ejs') %>
+<%- include('partials/carouseu.ejs') %>
+<main>
+    
+    <div class="details">
+        <h2>Voce Pode Gostar</h2>
+    </div>
+    <div class="main-products">
+        <% product.forEach(p =>{ %>
+  
+        <div class="card-product" onclick="location.href='/page/product/<%=p.id%>'">
+            <img src="images/products/<%=p.img%>" class="img-product">
+            <div class="title-product">
+                <p><%=p.name_product%> </p>
+            </div>
+            <h3 class="pricing">R$ <%=p.pricing%></h3>
+            <div class="seller-info"><p>Vendido Por <%=p.id_seller%></p>
+                
+            </div>
+        </div>
+    
+       <%})%>
+       
+           
+           
+      
+   
+
+
+        
+    </div>
+   
+   
+
+    
+<%- include('partials/footer.ejs') %> 

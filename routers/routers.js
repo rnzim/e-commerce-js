@@ -10,26 +10,7 @@ const UploadController = require('../controllers/UploadController')
 const AuthSeller = require('../middleware/AuthSeller')
 const AuthUser = require('../middleware/AuthUser')
 const UserSession = require('../middleware/AuthUserSession')
-
-
-//upload de image
-const multer = require('multer')
-const path = require('path')
-
-
-const storage = multer.diskStorage({destination:(req,file,cb)=>{
-    cb(null,"public/images/profiles")
-    },
-    filename:(req,file,cb)=>{
-        var name_file = "profile"+Date.now()+path.extname(file.originalname)
-        req.name_file = name_file
-        cb(null,name_file)
-       
-    }   
-
-})   
-
-const upload = multer({storage})
+const upload = require('../middleware/Upload')
 
 
 //rotas
@@ -49,17 +30,20 @@ router.post('/user',UserController.registerUser)
 router.post('/upload',upload.single("imagem"),AuthUser,UploadController.uploadPhoto)
 
 //product routers
+//
+router.get('/new/product',UserSession,ProductController.newProduct)
 router.get('/page/product/:id',ProductController.viewProduct)
 //procurar um produto pelo id
+//upload images
 router.get('/product/:id',ProductController.findProduct)
 //pesquisa de produtos
 router.get('/product/search/:name',ProductController.searchProduct)
 //cadastro de produtos se for vendedor
-router.post('/product',AuthSeller,ProductController.registerProduct)
+router.post('/product',UserSession,upload.single('imagem'),ProductController.registerProduct)
 //ediçao de produtos
 router.put('/product/:id',AuthSeller,ProductController.productUpdate)
 //deleçao de produtos
-router.delete('/product/:id',AuthSeller,ProductController.productDestroy)
+router.get('/destroy/:id',UserSession,ProductController.productDestroy)
 
 
 //purcharses
@@ -75,11 +59,12 @@ router.get('/my/buy',UserSession,PaymentController.viewPayment)
 router.post('/payment/very',PaymentController.verifyPayments)
 //seller
 //editar dados da loja
-router.put('/seller',AuthSeller,SellerController.editMyStore)
+router.get('/seller/me/profile/edit',UserSession,SellerController.editView)
+router.post('/seller/me/profile/edit/save',UserSession,SellerController.editMyStore)
 //torna-se vendedor 
 router.get('/seller/toturn',UserSession,SellerController.setSeller)
 //mostrar seu perfil pessoal de vendedor
-router.get('/seller/me/profile',AuthUser,SellerController.sellerMyProfile)
+router.get('/seller/me/profile',UserSession,SellerController.sellerMyProfile)
 //perfil publico a todos os usuarios da plataforma
 router.get('/seller/:name',SellerController.sellerPublicProfile)
 module.exports = router

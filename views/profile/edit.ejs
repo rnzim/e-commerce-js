@@ -1,0 +1,29 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+
+<div class="store-details">
+   
+<br>
+<input type="text">
+
+<div class="store-details">
+    <h1>Meu Perfil</h1>
+    <form action="/seller/me/profile/edit/save" method="post">
+        <label for="">Nome Da Loja</label>
+        <br>
+        <input type="text" class="in-p" name="name">
+        <br>
+        <label for="">Descrição Da Loja</label>
+        <br>
+        <input type="text" class="in-p" name="description">
+        <br>
+    
+        <button>Salvar</button>
+    </form>
+</div>
+
+
+   
+
+<%- include('../partials/footer.ejs') %>

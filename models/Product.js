@@ -58,7 +58,10 @@ class Product{
     }
     async viewProduct(){
         try {
-            var result = await knex.select(["products.*","seller.name_store"]).table('products').innerJoin('seller','seller.id','products.id_seller')
+            var result = await knex.select(["products.*","seller.name_store"])
+            .table('products')
+            .innerJoin('seller','seller.id','products.id_seller')
+            .orderBy('products.id', 'desc')
             return result
         } catch (error) {
             console.log(error)

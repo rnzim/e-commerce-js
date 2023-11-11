@@ -12,17 +12,28 @@ class ProductController{
             console.log(error)
         }
     }
+    async newProduct(req,res){
+        res.render('products/newProduct.ejs',{user:req.session.user})
+    }
     async registerProduct(req,res){
-        var id = req.userToken.id
-        var isSeller = req.userToken.seller
+        var id = req.session.user.id
+        var isSeller = req.session.user.seller
+        var img_name = req.file.filename
+        img_name == "productIcon.png" ? undefined:req.file.filename
         if(isSeller == 1){
             var findSeller = await Seller.findSellerById(id)
-            
+            // Obtém a data e hora atuais
+            let dataAtual = new Date();
+
+            // Formata a data e hora para o formato do MySQL (YYYY-MM-DD HH:mm:ss)
+            let dataFormatada = dataAtual.toISOString().slice(0, 19).replace("T", " ");
+
+            console.log(dataFormatada);
+
             var{
                 name_product,
                 description_product,
                 amount,
-                published,
                 pricing} = req.body
             try {
                 await Product.createProduct({
@@ -30,10 +41,12 @@ class ProductController{
                     description_product,
                     id_seller:findSeller[0].id,
                     amount,
-                    published,
-                    pricing
+                    published:dataFormatada,
+                    pricing,
+                    img:img_name
+                    
                 }) 
-                res.status(200).send('OK')
+                res.redirect('/seller/me/profile')
             } catch (error) {
                 res.status(500)
             }
@@ -75,10 +88,11 @@ class ProductController{
         if(product.length > 0){
             try {
                 var result = await Product.deleteProduct(id)
-                if(result.status == true){
-                    res.status(200).send('Ok')
-                }
+        
+                    res.redirect('/seller/me/profile')
+                
             } catch (error) {
+                res.redirect('/seller/me/profile')
                 console.log(error)
                 res.status(500)
             }

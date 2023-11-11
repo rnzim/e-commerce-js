@@ -12,10 +12,10 @@
         <div class="card-product" onclick="location.href='/page/product/<%=p.id%>'">
             <img src="images/products/<%=p.img%>" class="img-product">
             <div class="title-product">
-                <p><%=p.name_product%> </p>
+                <p><%=p.name_product.substring(0,40)%>... </p>
             </div>
             <h3 class="pricing">R$ <%=p.pricing%></h3>
-            <div class="seller-info"><p>Vendido Por <%=p.name_store%></p>
+            <div class="seller-info"><p>Vendido Por <%=p.name_store.substring(0,20)%></p>
                 
             </div>
         </div>

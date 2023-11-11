@@ -1,22 +1,28 @@
 const Seller = require('../models/Seller')
 const Products = require('../models/Product')
 class SellerController{
+    async editView(req,res){
+        res.render('profile/edit.ejs',{user:req.session.user})
+    }
     async editMyStore(req,res){
-        var id = req.userToken.id
+        var id = req.session.user.id
         var store = await Seller.findSellerById(id)
         if(store.length >0){
             var {name,description} = req.body
             try{
               var result = await Seller.alterInfo_store(id,{
-                 name_store: name == undefined? store[0].name_store:name
-                ,description_store: description == undefined? store[0].description_store:description
+                 name_store: name == undefined || name.length <= 0? store[0].name_store:name
+                ,description_store: description == undefined || description.length <= 0? store[0].description_store:description
             })
-            
+            console.log('///')
+            console.log(result)
+            console.log(id)
+            console.log(name+''+description)
             if(result > 0){
-                res.status(200).json({msg:"Sucesso Ao Editar"})
+                res.redirect("/seller/me/profile/")
             }else{
                 
-                res.status(400).json({msg:"Erro Ao Editar"})
+                res.redirect("/seller/me/profile/")
             }
             }catch(erro){
                 res.status(400).json({msg:"Erro Desconecido"})
@@ -26,11 +32,15 @@ class SellerController{
         }
     }
     async sellerMyProfile(req,res){
-      var id = req.userToken.id
+      var id = req.session.user.id
+    
+   
       var seller = await Seller.infoSeller(id)
+     
       var products = await Products.viewMyProducts(seller[0].id)
+
       if(seller.length > 0){
-        res.status(200).json({seller:seller[0],products:products})
+        res.render('profile/main.ejs',{seller:seller[0],products:products,user:req.session.user,seller})
       }else{
         res.status(404).json({msg:"Voce Não E Vendedor"})
       }

@@ -1,5 +1,42 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/navbar.ejs') %>
 
+<div class="store-details">
+    <img src="/images/profiles/profile.png" class="img-p">
+        <h1><%=seller[0].name_store%></h1>
+        <p class="pg-desc"><%=seller[0].description_store%></p></p>
+        <a href="/seller/me/profile/edit" class="btn-new">Editar</a>
+
+</div>
+<hr>
+<div class="my-p">
+    <div class="np">
+        <h4>Seus Produtos</h4>
+        <a href="/new/product" class="btn-new">Novo Produto</a>
+    </div>
+    <div class="search-div">
+        <% products.forEach(p =>{ %>
+     
+            <div class="search-p" onclick="location.href='/page/product/<%=p.id%>'">
+                <img src="/images/products/<%=p.img%>" class="img-search">
+                <div class="details-product" >
+                <h4><%=p.name_product%> </h4>
+               
+                <h3 class="pricing">R$ <%=p.pricing%></h3>
+                
+                <a href="/destroy/<%=p.id%>" class="btn-danger">Deletar</a>
+                <a href="" class="btn-alert">Editar</a>
+            </div> 
+          
+            </div>
+         
+        
+           <%})%>
+        
+               
+    </div>
+   
+</div>
 <button></button>
+
 <%- include('../partials/footer.ejs') %>

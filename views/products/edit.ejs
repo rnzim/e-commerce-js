@@ -1,0 +1,38 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+
+<div class="store-details">
+   
+<br>
+<input type="text">
+
+<div class="store-details">
+    <h1>Edição De Produto</h1>
+    <form action="/product/edit/save/<%=product.id%>" method="post" enctype="multipart/form-data">
+        <label for="">Nome Do Produto</label>
+        <br>
+        <input type="text" class="in-p" name="name" value="<%=product.name_product%>">
+        <br>
+        <label for="">Descrição Do Produto</label>
+        <br>
+        <input type="text" class="in-p" name="desc" value="<%=product.description_product%>">
+        <br>
+        <label for="">Preço</label>
+        <br>
+        <input type="text" class="in-p" name="pricing" value="<%=product.pricing%>">
+        <br>
+        <label for="">Quantidae</label>
+        <br>
+        <input type="number" class="in-p" name="amount" value="<%=product.amount%>">
+        <br>
+        <input type="file" name="imagem" id="imagem">
+
+        <button type="submit">Criar</button>
+    </form>
+</div>
+
+
+   
+
+<%- include('../partials/footer.ejs') %>

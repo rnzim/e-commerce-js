@@ -1,9 +1,14 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
+const Payment = require('../models/Payment')
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const secret = 'miznr'
 class UserController{
+    async meProfile(req,res){
+        var p = await Payment.viewPaymentTrue(req.session.user.id)
+        res.render('profile/profileUser.ejs',{user:req.session.user,products:p})
+    }
     async registerUser(req,res){
         var {
             fullname,

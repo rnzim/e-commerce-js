@@ -25,6 +25,7 @@ router.post('/login',UserController.loginUserSession)
 router.get('/login',UserController.login)
 
 router.get('/user',UserController.viewUser)
+router.get('/me/profile',UserSession,UserController.meProfile)
 // api =>router.post('/login',UserController.loginUser)
 router.post('/user',UserController.registerUser)
 router.post('/upload',upload.single("imagem"),AuthUser,UploadController.uploadPhoto)
@@ -41,7 +42,8 @@ router.get('/product/search/:name',ProductController.searchProduct)
 //cadastro de produtos se for vendedor
 router.post('/product',UserSession,upload.single('imagem'),ProductController.registerProduct)
 //ediçao de produtos
-router.put('/product/:id',AuthSeller,ProductController.productUpdate)
+router.get('/product/edit/:id',UserSession,ProductController.productUpdatePage)
+router.post('/product/edit/save/:id',UserSession,upload.single('imagem'),ProductController.productUpdate)
 //deleçao de produtos
 router.get('/destroy/:id',UserSession,ProductController.productDestroy)
 

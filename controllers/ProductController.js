@@ -18,8 +18,7 @@ class ProductController{
     async registerProduct(req,res){
         var id = req.session.user.id
         var isSeller = req.session.user.seller
-        var img_name = req.file.filename
-        img_name == "productIcon.png" ? undefined:req.file.filename
+        var img_name = req.file == undefined? "productIcon.png": req.file.filename
         if(isSeller == 1){
             var findSeller = await Seller.findSellerById(id)
             // Obtém a data e hora atuais
@@ -64,18 +63,26 @@ class ProductController{
        }
       
     } 
-
+    async productUpdatePage(req,res){
+        var id = req.params.id
+        var findProduct = await Product.findByIdProduct(id)
+        res.render('products/edit.ejs',{user:req.session.user,product:findProduct[0]})
+    }
     async productUpdate(req,res){
         var id = req.params.id
+        var img_name = req.file == undefined? "productIcon.png": req.file.filename
+        
         var {
-
-            name,desc,amount,pricing
-
+            name,
+            desc,
+            amount,
+            pricing
         } = req.body
+        
         try {
-            var result = await Product.editProduct(id, name, desc, amount, pricing);
+            var result = await Product.editProduct(id, name, desc, amount, pricing,img_name);
             console.log(result);
-            res.status(200).json(result);
+            res.redirect('/seller/me/profile')
         } catch (error) {
             console.log(error);
             res.status(500).json({ status: false, err: 'An error occurred while updating the product' });

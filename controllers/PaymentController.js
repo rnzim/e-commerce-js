@@ -51,6 +51,8 @@ class PaymentController{
                     external_references:idBuy,
                     payment_url:payment.body.init_point
                 })
+
+                var setSold = Products.setSold(idProduct)
                 return res.redirect(payment.body.init_point)
             } catch (error) {
                 console.log(error)

@@ -50,8 +50,9 @@ class SellerController{
         var name = req.params.name
         try{
             var seller = await Seller.findSellerByNameStore(name)
+            var products = await Products.viewMyProducts(seller[0].id)
             if(seller.length > 0){
-                res.status(200).json(seller)
+                res.render('profile/publicProfile.ejs',{seller,products:products,user:req.session.user})
             }else{
                 res.status(404).json({msg:"Esse Vendedor Não Existe"})
             }

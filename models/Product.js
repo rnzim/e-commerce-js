@@ -14,7 +14,7 @@ class Product{
         
     }
     //edit product
-    async editProduct(id,name,desc,amount,pricing){
+    async editProduct(id,name,desc,amount,pricing,img_name){
        
         var product = await this.findByIdProduct(id)
         console.log(product)
@@ -23,7 +23,8 @@ class Product{
             name_product: name == undefined ? product.name_product : name,
             description_product: desc == undefined ? product[0].description_product : desc,
             amount: amount == undefined ? product[0].amount : amount,
-            pricing:pricing == undefined ? product[0].pricing : pricing
+            pricing:pricing == undefined ? product[0].pricing : pricing,
+            img:img_name
            }
            try {
             var result = knex.update(editData).where({id:id}).table('products')
@@ -93,7 +94,7 @@ class Product{
     async viewMyProducts(id){
         try {
             var result = await knex.select("*").where({id_seller:id})
-            .table('products')
+            .table('products').orderBy('products.id', 'desc')
             return result
         } catch (error) {
             console.log(error)

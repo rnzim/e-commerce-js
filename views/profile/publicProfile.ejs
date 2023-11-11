@@ -5,16 +5,13 @@
     <img src="/images/profiles/profile.png" class="img-p">
         <h1><%=seller[0].name_store%></h1>
         <p class="pg-desc"><%=seller[0].description_store%></p></p>
-        <a href="/seller/me/profile/edit" class="btn-new">Editar</a>
+        
 
 </div>
 <hr>
 <div class="my-p">
-    <div class="np">
-        <h4>Seus Produtos</h4>
-        <a href="/new/product" class="btn-new">Novo Produto</a>
-    </div>
     <div class="search-div">
+        <h3>Produtos Desse Vendedor</h3>
         <% products.forEach(p =>{ %>
      
             <div class="search-p" onclick="location.href='/page/product/<%=p.id%>'">
@@ -24,8 +21,7 @@
                
                 <h3 class="pricing">R$ <%=p.pricing%></h3>
                 
-                <a href="/destroy/<%=p.id%>" class="btn-danger">Deletar</a>
-                <a href="/product/edit/<%=p.id%>" class="btn-alert">Editar</a>
+            
             </div> 
           
             </div>
@@ -37,6 +33,6 @@
     </div>
    
 </div>
-<button></button>
+
 
 <%- include('../partials/footer.ejs') %>

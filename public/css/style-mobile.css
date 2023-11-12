@@ -29,11 +29,12 @@ input{
 
 }
 .card-product{
-    width: 190px;
-    margin: 0px;
+    width: 180px;
+    margin: 0px auto;
 }
 .main-products{
     width: 100%;
+    padding: 10px;
 }
 .dg{
     width: 50%;

@@ -416,9 +416,27 @@ p{
     margin: auto;
     gap: 35%;
 }
-@media screen and (min-width: 768px) {
-    .card-product {
-        width: 180px;
-        background-color: #9e0a36;
-    }
+
+.img-search{
+    width: 120px;
+}
+h4{
+    font-size: 16px;
+}
+.search-div{
+    padding: 5px;
+    gap: 0px;
+    background-color: white;
+}
+.search-p{
+    background-color: white;
+    padding: 0px;
+    border: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.453);
+}
+.dg{
+    width: 30%;
+}
+.img-c{
+    width: 120px;
 }

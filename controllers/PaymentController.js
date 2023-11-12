@@ -69,7 +69,7 @@ class PaymentController{
         if(payments.length > 0){
             res.render('payment/main.ejs',{payments,user:req.session.user})
         }else{
-            res.status(404).json({msg:"Voce Ainda Não Gerou Nenhum Pagamento"})
+            res.render('payment/main.ejs',{payments,user:req.session.user})
         }
     }
     async verifyPayments(req,res){

@@ -1,9 +1,13 @@
 <header>
     <% if (user !== undefined) { %>
-        <p>oi <%= user.fullname %></p>
+        <div class="dg">
+            <p>oi <%= user.fullname %></p> 
+            <a href="/logoff" style="margin-left: 20px; color: gray; display: inline;">Sair</a>
+        </div>
+        
     <% } else { %>
         <a href="/login">Entrar</a>
-        <a href="/cadastro">Cadastro</a>
+        <a href="/register">Cadastro</a>
     <% } %>
     
     <div class="header-search-items">
@@ -24,7 +28,7 @@
     <nav>
         <a href="/my/buy">Pagamentos</a>
         <a href="/">Inicio</a>
-        <a href="/me/profile">Meu Perfil</a>
+        <a href="/me/profile">Perfil</a>
         <% if ( user != undefined && user.seller == 1) { %>
             <a href="/seller/me/profile">Minha Loja</a>
         <% } else { %>

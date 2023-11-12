@@ -25,9 +25,11 @@ router.post('/login',UserController.loginUserSession)
 router.get('/login',UserController.login)
 
 router.get('/user',UserController.viewUser)
+router.get('/register',UserController.register)
+router.get('/logoff',UserController.logoff)
 router.get('/me/profile',UserSession,UserController.meProfile)
 // api =>router.post('/login',UserController.loginUser)
-router.post('/user',UserController.registerUser)
+router.post('/user/register',UserController.registerUser)
 router.post('/upload',upload.single("imagem"),AuthUser,UploadController.uploadPhoto)
 
 //product routers

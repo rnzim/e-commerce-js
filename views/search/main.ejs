@@ -5,7 +5,9 @@
     <% product.forEach(p =>{ %>
  
         <div class="search-p" onclick="location.href='/page/product/<%=p.id%>'">
+            <div class="img-c">
             <img src="/images/products/<%=p.img%>" class="img-search">
+        </div>
             <div class="details-product" >
             <h4><%=p.name_product%> </h4>
            

@@ -84,7 +84,7 @@ class Product{
         try {
             var result = await knex.select(["products.*","seller.name_store"]).table("products")
             .whereRaw('name_product like ?', [`%${name}%`])
-            .orWhere('description_product ', 'like', `%${name}%`).innerJoin('seller','seller.id','products.id_seller')
+            .orWhere('description_product ', 'like', `%${name}%`).innerJoin('seller','seller.id','products.id_seller').orderBy("id","desc")
             
             return result
         } catch (error) {

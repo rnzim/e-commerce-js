@@ -1,6 +1,11 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/navbar.ejs') %>
-<div class="card-page-product">
+<div class="card-page-productd">
+    <%if(payments[0] == undefined){%>
+        <h1>Você Não Gerou nenhum Pagamento</h1>
+   <%} else {%>
+
+   
     <table>
         <th>ID Do Pagamento</th>
         <th>ID Do Produto</th>
@@ -13,13 +18,24 @@
         <td><%= p.id%></td>
         <td><%= p.id_product%></td>
         <td>R$<%= p.pricing%></td>
-        <td><%= p.status_paid%></td>
+        <% if (p.paid_out == 1) { %>
+            <td style="color: green; font-weight: bolder;"><%= p.status_paid%></td>
+        <% } else { %>
+            <td><%= p.status_paid%></td>
+        <% } %>
+        
         <td><%= p.payment_type%></td>
-        <td><a class="btn-pay "href="<%= p.payment_url%>">Pagar</a></td>
+        <% if (p.paid_out == 1) { %>
+            <td></td>
+        <% } else { %>
+            <td><a class="btn-pay "href="<%= p.payment_url%>">Pagar</a></td>
+        <% } %>
+       
         </tr>
         <%})%>
+        
     </table>
-   
+    <%}%>
       
            
     

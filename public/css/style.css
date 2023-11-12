@@ -77,30 +77,7 @@ button:hover{
 nav{
     padding: 10px;
 }
-@media screen and (max-width: 768px)  {
-    .header-search-items{
-        width: 100%;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    h1{
-        font-size: 23px;
-        padding: 0px;
-    }
-    a{
-        font-size: 14px;
-    }
-    input{
-        width: 50%;
-    
-    }
-    .main-products{
-        width: 100%;
-    }
-    
-}
+
 .main-products{
     display: flex;
     flex-wrap: wrap;
@@ -431,4 +408,11 @@ p{
     background-color: rgb(200, 190, 54);
     
     padding: 0px;
+}
+.dg{
+    width: 35%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    gap: 35%;
 }

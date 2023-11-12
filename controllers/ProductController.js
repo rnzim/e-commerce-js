@@ -70,7 +70,8 @@ class ProductController{
     }
     async productUpdate(req,res){
         var id = req.params.id
-        var img_name = req.file == undefined? "productIcon.png": req.file.filename
+        var pi = await Product.findByIdProduct(id)
+        var img_name = req.file == undefined? pi[0].img: req.file.filename
         
         var {
             name,

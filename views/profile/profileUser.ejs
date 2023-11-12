@@ -12,6 +12,10 @@
 <div class="my-p">
     <div class="search-div">
         <h3>Você Comprou</h3>
+        <% if (products[0] == undefined) { %>
+          <p>Voçê Não Comprou Nada</p>
+          <a href="/" style="color: blue; text-decoration: underline;">Compre-ja</a>
+        <%}%>
         <% products.forEach(p =>{ %>
      
             <div class="search-p" onclick="location.href='/page/product/<%=p.id%>'">

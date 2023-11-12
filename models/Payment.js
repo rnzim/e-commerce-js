@@ -32,7 +32,7 @@ class Payment{
               .from('payment')
               .join('products', 'products.id', '=', 'payment.id_product')
               .join('users', 'users.id', '=', 'payment.id_user')
-              .where('payment.paid_out', '=', 1);
+              .where({paid_out:1,id_user:id});
             return pay
         } catch (error) {
             throw error

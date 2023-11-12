@@ -1,0 +1,35 @@
+<%- include('../partials/header.ejs') %>
+<header style="background-color: black;color: white;" ><h1>Power</h1></header>
+<div class="store-details">
+   
+<br>
+<input type="text">
+
+<div class="store-details">
+    <h1>Cadastro</h1>
+    <form action="/user/register" method="post">
+        <label for="">Nome Completo</label>
+        <br>
+        <input type="text" class="in-p" name="fullname" >
+        <br>
+        <label for="">Nome De usuario</label>
+        <br>
+        <input type="text" class="in-p" name="username">
+        <br>
+        <label for="">Email</label>
+        <br>
+        <input type="email" class="in-p" name="email">
+        <br>
+        <label for="">Senha</label>
+        <br>
+        <input type="password" class="in-p" name="pass">
+        <br>
+    
+        <button style="margin-top: 10px; background-color: black; margin-left: 2px;">Cadastra-se</button>
+    </form>
+</div>
+
+
+   
+
+<%- include('../partials/footer.ejs') %>

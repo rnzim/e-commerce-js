@@ -17,12 +17,16 @@ class UserController{
             pass,
             sald,
             seller,
-            registration_date,
+         
 
         }
          = req.body
          var hash = await bcrypt.hash(pass,8)
          try{
+            let dataAtual = new Date();
+            // Formata a data e hora para o formato do MySQL (YYYY-MM-DD HH:mm:ss)
+            let dataFormatada = dataAtual.toISOString().slice(0, 19).replace("T", " ");
+
           await User.createUser({
             fullname,
             username,
@@ -30,9 +34,9 @@ class UserController{
             pass:hash,
             sald,
             seller,
-            registration_date,
+            registration_date:dataFormatada,
           })
-          res.status(200).send('ok')
+          res.redirect("/login")
          }catch(erro){
             console.log(erro)
             res.status(500)
@@ -41,7 +45,9 @@ class UserController{
     async login(req,res){
         res.render('user/login.ejs')
     }
-
+    async register(req,res){
+        res.render('user/register.ejs')
+    }
     async loginUserSession(req,res){
         var {email,pass} = req.body
         var user = await User.findByEmail(email)
@@ -105,6 +111,10 @@ class UserController{
         }catch(error){
             throw error
         }
+    }
+    async logoff(req,res){
+        req.session.destroy()
+        res.redirect('/')
     }
 }
 module.exports = new UserController
